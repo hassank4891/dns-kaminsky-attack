@@ -1,0 +1,6 @@
+// Bootstrap only the parent; child delegations are learned from referrals.
+zone "test" {
+    type stub;
+    masters { 10.10.0.5; };
+    file "/var/cache/bind/stub.test";
+};

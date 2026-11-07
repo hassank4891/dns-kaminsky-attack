@@ -1,0 +1,4 @@
+zone "victim.test" {
+    type stub;
+    masters { 10.10.0.3; }; # CORRECT syntax (note the IP inside curly braces with a trailing semicolon)
+};

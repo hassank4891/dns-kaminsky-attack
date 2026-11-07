@@ -1,0 +1,15 @@
+$TTL 60
+
+@       IN      SOA     ns1.victim.test. admin.victim.test. (
+                        2026092001
+                        60
+                        60
+                        604800
+                        60
+)
+
+        IN      NS      ns1.victim.test.
+
+ns1     IN      A       10.10.0.3
+
+www     IN      A       10.10.0.20

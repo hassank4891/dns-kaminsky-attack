@@ -1,0 +1,4 @@
+zone "evil.test" {
+    type primary;
+    file "/etc/bind/db.evil.test";
+};

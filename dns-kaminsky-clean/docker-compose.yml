@@ -1,0 +1,39 @@
+services:
+
+  parent:
+    build: ./parent
+    container_name: dns-parent
+    networks:
+      dns_lab:
+        ipv4_address: 10.10.0.5
+
+  resolver:
+    build: ./resolver
+    container_name: dns-resolver
+    networks:
+      dns_lab:
+        ipv4_address: 10.10.0.2
+
+  auth:
+    build: ./auth
+    container_name: dns-auth
+    networks:
+      dns_lab:
+        ipv4_address: 10.10.0.3
+
+  attacker:
+    build: ./attacker
+    container_name: dns-attacker
+    networks:
+      dns_lab:
+        ipv4_address: 10.10.0.4
+
+networks:
+  dns_lab:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 10.10.0.0/24
+
+

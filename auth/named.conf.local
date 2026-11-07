@@ -1,0 +1,4 @@
+zone "victim.test" {
+    type primary;
+    file "/etc/bind/db.victim.test";
+};

@@ -1,0 +1,5 @@
+zone "test" {
+    type primary;
+    file "/etc/bind/db.test";
+    notify no;
+};
