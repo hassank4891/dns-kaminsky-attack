@@ -1,0 +1,13 @@
+options {
+    directory "/var/cache/bind";
+    recursion yes;
+    allow-query { any; };
+    
+    // DEFENSE DISABLED 1: Fixes source port, reducing entropy to only the 16-bit TXID
+    query-source address * port 5353;
+    
+    // DEFENSE DISABLED 2: Disables DNSSEC validation to allow unsigned spoofed records
+    dnssec-validation no;
+    
+    auth-nxdomain no;
+};

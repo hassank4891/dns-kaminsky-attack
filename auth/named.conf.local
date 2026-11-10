@@ -1,4 +1,5 @@
-zone "victim.test" {
-    type primary;
-    file "/etc/bind/db.victim.test";
+zone "target.test" {
+    type master;
+    file "/etc/bind/db.target.test";
+    allow-query { any; };
 };

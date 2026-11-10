@@ -1,16 +1,6 @@
 FROM ubuntu:24.04
-
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
-        bind9 \
-        bind9-utils \
-        dnsutils \
-        tcpdump && \
-    rm -rf /var/lib/apt/lists/*
-
-COPY named.conf /etc/bind/named.conf
-COPY named.conf.options /etc/bind/named.conf.options
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y bind9 tcpdump
 COPY named.conf.local /etc/bind/named.conf.local
-COPY db.victim.test /etc/bind/db.victim.test
-
-CMD ["named", "-g", "-c", "/etc/bind/named.conf"]
+COPY db.target.test /etc/bind/db.target.test
+CMD ["named", "-c", "/etc/bind/named.conf", "-g", "-u", "root"]

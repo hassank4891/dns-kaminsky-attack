@@ -1,0 +1,5 @@
+zone "target.test" {
+    type forward;
+    forward only;
+    forwarders { 172.20.0.20; };
+};

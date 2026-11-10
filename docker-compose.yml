@@ -1,30 +1,36 @@
-services:
+version: '3.8'
 
-  resolver:
-    build: ./resolver
-    container_name: dns-resolver
+networks:
+  kaminsky-net:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+
+services:
+  victim:
+    build: ./victim
+    container_name: victim-resolver
     networks:
-      dns_lab:
-        ipv4_address: 10.10.0.2
+      kaminsky-net:
+        ipv4_address: 172.20.0.10
+    cap_add:
+      - NET_RAW
+      - NET_ADMIN
 
   auth:
     build: ./auth
-    container_name: dns-auth
+    container_name: auth-server
     networks:
-      dns_lab:
-        ipv4_address: 10.10.0.3
+      kaminsky-net:
+        ipv4_address: 172.20.0.30
 
   attacker:
-    build: ./attacker
-    container_name: dns-attacker
+    build: ./dns-poisoning-tool
+    container_name: attacker
     networks:
-      dns_lab:
-        ipv4_address: 10.10.0.4
-
-networks:
-  dns_lab:
-    driver: bridge
-    internal: true
-    ipam:
-      config:
-        - subnet: 10.10.0.0/24
+      kaminsky-net:
+        ipv4_address: 172.20.0.20
+    cap_add:
+      - NET_RAW      # Required for Scapy to craft raw packets
+      - NET_ADMIN    # Required for Scapy to send packets
+    privileged: true # Ensures Scapy has full network stack access
